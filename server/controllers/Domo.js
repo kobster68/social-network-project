@@ -1,6 +1,6 @@
 const models = require('../models');
 
-const { Domo } = models;
+const { Domo, Account } = models;
 
 const makerPage = (req, res) => res.render('app');
 
@@ -40,25 +40,21 @@ const getDomos = async (req, res) => {
   }
 };
 
-const deleteDomo = async (req, res) => {
+const followUser = async (req, res) => {
   try {
-    const query = {
-      owner: req.session.account._id,
-      name: req.body.name,
-      age: req.body.age,
-      height: req.body.height,
-    };
-    await Domo.deleteOne(query);
-    return res.json({});
+    console.log("follow request pending.");
+    // need to add empty check for followed users array.
+    req.session.account.followedUsers = [ req.body.owner ];
+    return res.status(500).json({ error: 'Debug: followed user' });
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ error: 'Error deleting domo!' });
+    return res.status(500).json({ error: 'Error following user!' });
   }
 };
 
 module.exports = {
   makerPage,
   makeDomo,
-  deleteDomo,
+  followUser,
   getDomos,
 };

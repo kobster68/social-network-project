@@ -2,7 +2,7 @@ const controllers = require('./controllers');
 const mid = require('./middleware');
 
 const router = (app) => {
-  app.post('/delete', mid.requiresLogin, controllers.Domo.deleteDomo);
+  app.post('/follow', mid.requiresLogin, controllers.Domo.followUser);
 
   app.get('/getDomos', mid.requiresLogin, controllers.Domo.getDomos);
 

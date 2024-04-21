@@ -37,6 +37,10 @@ const AccountSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  followedUsers: {
+    type: [String],
+    default: undefined,
+  },
 });
 
 // Converts a doc to something we can store in redis later on.
