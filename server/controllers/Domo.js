@@ -1,6 +1,6 @@
 const models = require('../models');
 
-const { Domo, Account } = models;
+const { Domo } = models;
 
 const makerPage = (req, res) => res.render('app');
 
@@ -18,7 +18,7 @@ const makeDomo = async (req, res) => {
   try {
     const newDomo = new Domo(domoData);
     await newDomo.save();
-    return res.status(201).json({ name: newDomo.name, content: newDomo.content});
+    return res.status(201).json({ name: newDomo.name, content: newDomo.content });
   } catch (err) {
     console.log(err);
     if (err.code === 11000) {
@@ -42,9 +42,9 @@ const getDomos = async (req, res) => {
 
 const followUser = async (req, res) => {
   try {
-    console.log("follow request pending.");
+    console.log('follow request pending.');
     // need to add empty check for followed users array.
-    req.session.account.followedUsers = [ req.body.owner ];
+    req.session.account.followedUsers = [req.body.owner];
     return res.status(500).json({ error: 'Debug: followed user' });
   } catch (err) {
     console.log(err);
