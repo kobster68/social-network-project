@@ -71,9 +71,9 @@ const DomoList = (props) => {
                     loadDomosFromServer();
                 }}>X</button>
                 */}
-                <img src="/assets/img/domoface.jpeg" alt="domo face" className="domoFace" />
+                {/* <img src="/assets/img/domoface.jpeg" alt="domo face" className="domoFace" /> */}
                 <h3 className="domoName">Name: {domo.name}</h3>
-                <h3 className="domoAge">Content: {domo.content}</h3>
+                <h3 className="domoContent">Message: {domo.content}</h3>
             </div>
         );
     });
