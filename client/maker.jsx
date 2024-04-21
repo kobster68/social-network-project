@@ -7,16 +7,14 @@ const handleDomo = (e, onDomoAdded) => {
     e.preventDefault();
     helper.hideError();
 
-    const name = e.target.querySelector('#domoName').value;
-    const age = e.target.querySelector('#domoAge').value;
-    const height = e.target.querySelector('#domoHeight').value;
+    const content = e.target.querySelector('#domoContent').value;
 
-    if(!name || !age || !height) {
+    if(!content) {
         helper.handleError('All fields are required');
         return false;
     }
 
-    helper.sendPost(e.target.action, {name, age, height}, onDomoAdded);
+    helper.sendPost(e.target.action, {content}, onDomoAdded);
     return false;
 }
 
@@ -29,13 +27,9 @@ const DomoForm = (props) => {
             method="POST"
             className='domoForm'
         >
-            <label htmlFor="name">Name: </label>
-            <input id="domoName" type="text" name="name" placeholder="Domo Name"/>
-            <label htmlFor='age'>Age: </label>
-            <input id="domoAge" type="number" min="0" name="age" />
-            <label htmlFor='height'>Height: </label>
-            <input id="domoHeight" type="number" min="0" name="height" />
-            <input className='makeDomoSubmit' type="submit" value="Make Domo" />
+            <label htmlFor='content'>Message: </label>
+            <input id="domoContent" type="text" name="content" />
+            <input className='makeDomoSubmit' type="submit" value="Send Message" />
         </form>
     );
 };
@@ -63,6 +57,7 @@ const DomoList = (props) => {
     const domoNodes = domos.map(domo => {
         return (
             <div key={domo.id} className='domo'>
+                {/*
                 <button onClick={() => {
                     const name = domo.name;
                     const age = domo.age;
@@ -75,10 +70,10 @@ const DomoList = (props) => {
                     };
                     loadDomosFromServer();
                 }}>X</button>
+                */}
                 <img src="/assets/img/domoface.jpeg" alt="domo face" className="domoFace" />
                 <h3 className="domoName">Name: {domo.name}</h3>
-                <h3 className="domoAge">Age: {domo.age}</h3>
-                <h3 className="domoHeight">Height: {domo.height}</h3>
+                <h3 className="domoAge">Content: {domo.content}</h3>
             </div>
         );
     });

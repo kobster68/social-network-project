@@ -10,14 +10,8 @@ const DomoSchema = new mongoose.Schema({
     trim: true,
     set: setName,
   },
-  age: {
-    type: Number,
-    min: 0,
-    required: true,
-  },
-  height: {
-    type: Number,
-    min: 0,
+  content: {
+    type: String,
     required: true,
   },
   owner: {
@@ -33,8 +27,7 @@ const DomoSchema = new mongoose.Schema({
 
 DomoSchema.statics.toAPI = (doc) => ({
   name: doc.name,
-  age: doc.age,
-  height: doc.height,
+  content: doc.content,
 });
 
 const DomoModel = mongoose.model('Domo', DomoSchema);
