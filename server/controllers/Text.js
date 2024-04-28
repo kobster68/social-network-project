@@ -1,42 +1,42 @@
 const models = require('../models');
 
-const { Domo } = models;
+const { Text } = models;
 
 const makerPage = (req, res) => res.render('app');
 
-const makeDomo = async (req, res) => {
+const makeText = async (req, res) => {
   if (!req.body.content) {
     return res.status(400).json({ error: 'Content is required!' });
   }
 
-  const domoData = {
+  const textData = {
     name: req.session.account.username,
     content: req.body.content,
     owner: req.session.account._id,
   };
 
   try {
-    const newDomo = new Domo(domoData);
-    await newDomo.save();
-    return res.status(201).json({ name: newDomo.name, content: newDomo.content });
+    const newText = new Text(textData);
+    await newText.save();
+    return res.status(201).json({ name: newText.name, content: newText.content });
   } catch (err) {
     console.log(err);
     if (err.code === 11000) {
-      return res.status(400).json({ error: 'Domo already exists!' });
+      return res.status(400).json({ error: 'Message already exists!' });
     }
-    return res.status(500).json({ error: 'An error occured making domo!' });
+    return res.status(500).json({ error: 'An error occured sending message!' });
   }
 };
 
-const getDomos = async (req, res) => {
+const getTexts = async (req, res) => {
   try {
     const query = { };
-    const docs = await Domo.find(query).select('name content').lean().exec();
+    const docs = await Text.find(query).select('name content').lean().exec();
 
-    return res.json({ domos: docs });
+    return res.json({ texts: docs });
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ error: 'Error retrieving domos!' });
+    return res.status(500).json({ error: 'Error retrieving messages!' });
   }
 };
 
@@ -54,7 +54,7 @@ const followUser = async (req, res) => {
 
 module.exports = {
   makerPage,
-  makeDomo,
+  makeText,
   followUser,
-  getDomos,
+  getTexts,
 };

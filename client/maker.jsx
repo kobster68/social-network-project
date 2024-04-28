@@ -3,94 +3,94 @@ const React = require('react');
 const { useState, useEffect } = React;
 const { createRoot } = require('react-dom/client');
 
-const handleDomo = (e, onDomoAdded) => {
+const handleTexts = (e, onTextAdded) => {
     e.preventDefault();
     helper.hideError();
 
-    const content = e.target.querySelector('#domoContent').value;
+    const content = e.target.querySelector('#textContent').value;
 
     if(!content) {
         helper.handleError('All fields are required');
         return false;
     }
 
-    helper.sendPost(e.target.action, {content}, onDomoAdded);
+    helper.sendPost(e.target.action, {content}, onTextAdded);
     return false;
 }
 
-const DomoForm = (props) => {
+const TextForm = (props) => {
     return (
-        <form id="domoForm"
-            name="domoForm"
-            onSubmit={(e) => handleDomo(e, props.triggerReload)}
+        <form id="textForm"
+            name="textForm"
+            onSubmit={(e) => handleTexts(e, props.triggerReload)}
             action="/maker"
             method="POST"
-            className='domoForm'
+            className='textForm'
         >
             <label htmlFor='content'>Message: </label>
-            <input id="domoContent" type="text" name="content" />
-            <input className='makeDomoSubmit' type="submit" value="Send Message" />
+            <input id="textContent" type="text" name="content" />
+            <input className='makeTextSubmit' type="submit" value="Send Message" />
         </form>
     );
 };
 
-const DomoList = (props) => {
-    const [domos, setDomos] = useState(props.domos);
+const TextList = (props) => {
+    const [texts, setText] = useState(props.text);
 
     useEffect(() => {
-        const loadDomosFromServer = async () => {
-            const response = await fetch('/getDomos');
+        const loadTextsFromServer = async () => {
+            const response = await fetch('/getTexts');
             const data = await response.json();
-            setDomos(data.domos);
+            setTexts(data.texts);
         };
-        loadDomosFromServer();
-    }, [props.reloadDomos]);
+        loadTextsFromServer();
+    }, [props.reloadTexts]);
 
-    if(domos.length === 0) {
+    if(texts.length === 0) {
         return (
-            <div className="domoList">
-                <h3 className="emptyDomo">No Domos Yet!</h3>
+            <div className="textList">
+                <h3 className="emptyText">No Messages Yet!</h3>
             </div>
         );
     }
 
-    const domoNodes = domos.map(domo => {
+    const textNodes = texts.map(text => {
         return (
-            <div key={domo.id} className='domo'>
+            <div key={text.id} className='text'>
                 <button onClick={() => {
-                    const owner = domo.owner;
+                    const owner = text.owner;
                     helper.sendPost("/follow", {owner});
-                    const loadDomosFromServer = async () => {
-                        const response = await fetch('/getDomos');
+                    const loadTextsFromServer = async () => {
+                        const response = await fetch('/getTexts');
                         const data = await response.json();
-                        setDomos(data.domos);
+                        setTexts(data.texts);
                     };
-                    loadDomosFromServer();
+                    loadTextsFromServer();
                 }}>Follow</button>
-                {/* <img src="/assets/img/domoface.jpeg" alt="domo face" className="domoFace" /> */}
-                <h3 className="domoName">@{domo.name}</h3>
-                <h3 className="domoContent">Message: {domo.content}</h3>
+                {/* <img src="/assets/img/textface.jpeg" alt="text face" className="textFace" /> */}
+                <h3 className="textName">@{text.name}</h3>
+                <h3 className="textContent">Message: {text.content}</h3>
             </div>
         );
     });
 
     return (
-        <div className="domoList">
-            {domoNodes}
+        <div className="textList">
+            {textNodes}
         </div>
     );
 };
 
 const App = () => {
-    const [reloadDomos, setReloadDomos] = useState(false);
+    const [reloadTexts, setReloadTexts] = useState(false);
 
     return (
         <div>
-            <div id="makeDomo">
-                <DomoForm triggerReload={() => setReloadDomos(!reloadDomos)} />
+            <div id="makeText">
+                <TextForm triggerReload={() => setReloadText(!reloadTexts)} />
             </div>
-            <div id="domos">
-                <DomoList domos={[]} reloadDomos={reloadDomos} />
+            <div id="texts">
+                <TextList texts={[]} reloadTexts={reloadTexts} />
             </div>
         </div>
     );
