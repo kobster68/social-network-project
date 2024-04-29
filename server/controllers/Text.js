@@ -29,6 +29,7 @@ const makeText = async (req, res) => {
 };
 
 const getTexts = async (req, res) => {
+  console.log('message request recieved');
   try {
     const query = { };
     const docs = await Text.find(query).select('name content').lean().exec();

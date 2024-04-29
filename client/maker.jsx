@@ -3,7 +3,7 @@ const React = require('react');
 const { useState, useEffect } = React;
 const { createRoot } = require('react-dom/client');
 
-const handleTexts = (e, onTextAdded) => {
+const handleText = (e, onTextAdded) => {
     e.preventDefault();
     helper.hideError();
 
@@ -22,20 +22,20 @@ const TextForm = (props) => {
     return (
         <form id="textForm"
             name="textForm"
-            onSubmit={(e) => handleTexts(e, props.triggerReload)}
+            onSubmit={(e) => handleText(e, props.triggerReload)}
             action="/maker"
             method="POST"
             className='textForm'
         >
             <label htmlFor='content'>Message: </label>
             <input id="textContent" type="text" name="content" />
-            <input className='makeTextSubmit' type="submit" value="Send Message" />
+            <input className='makeTextSubmit' type="submit" value="Send Text" />
         </form>
     );
 };
 
 const TextList = (props) => {
-    const [texts, setText] = useState(props.text);
+    const [texts, setTexts] = useState(props.texts);
 
     useEffect(() => {
         const loadTextsFromServer = async () => {
@@ -87,7 +87,7 @@ const App = () => {
     return (
         <div>
             <div id="makeText">
-                <TextForm triggerReload={() => setReloadText(!reloadTexts)} />
+                <TextForm triggerReload={() => setReloadTexts(!reloadTexts)} />
             </div>
             <div id="texts">
                 <TextList texts={[]} reloadTexts={reloadTexts} />
