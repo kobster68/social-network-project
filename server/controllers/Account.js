@@ -56,7 +56,6 @@ const signup = async (req, res) => {
 };
 
 const changePassword = async (req, res) => {
-
   const pass = `${req.body.pass}`;
   const pass2 = `${req.body.pass2}`;
 
@@ -70,7 +69,7 @@ const changePassword = async (req, res) => {
 
   try {
     await Account.changePassword(req.session.account.username, pass);
-    return;
+    return res.json({ redirect: '/maker' });
   } catch (err) {
     console.log(err);
     return res.status(500).json({ error: 'An error occured!' });

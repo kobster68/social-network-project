@@ -79,14 +79,12 @@ AccountSchema.statics.authenticate = async (username, password, callback) => {
 AccountSchema.statics.changePassword = async (username, newPass) => {
   try {
     const doc = await AccountModel.findOne({ username });
-    console.log(doc);
-    console.log(doc.password);
 
-    doc.password = bcrypt.hash(newPass, saltRounds);
+    const hash = await bcrypt.hash(newPass, saltRounds);
+    doc.password = hash;
+
     await doc.save();
-    console.log(doc.password);
-    return;
-
+    return console.log('Password change successful!');
   } catch (err) {
     return console.log(err);
   }
