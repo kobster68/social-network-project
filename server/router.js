@@ -13,10 +13,10 @@ const router = (app) => {
 
   app.get('/logout', mid.requiresLogin, controllers.Account.logout);
 
-  app.get('/maker', mid.requiresLogin, controllers.Text.makerPage);
+  app.get('/maker', mid.requiresLogin, controllers.Text.mainPage);
   app.post('/maker', mid.requiresLogin, controllers.Text.makeText);
 
-  app.get('/account', mid.requiresLogin, controllers.Text.accountPage);
+  app.get('/account', mid.requiresLogin, controllers.Text.mainPage);
 
   app.get('/', mid.requiresSecure, mid.requiresLogout, controllers.Account.loginPage);
 };

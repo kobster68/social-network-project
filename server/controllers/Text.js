@@ -2,9 +2,7 @@ const models = require('../models');
 
 const { Text } = models;
 
-const makerPage = (req, res) => res.render('app');
-
-const accountPage = (req, res) => res.render('account');
+const mainPage = (req, res) => res.render('app');
 
 const makeText = async (req, res) => {
   if (!req.body.content) {
@@ -56,9 +54,8 @@ const followUser = async (req, res) => {
 };
 
 module.exports = {
-  makerPage,
+  mainPage,
   makeText,
   followUser,
   getTexts,
-  accountPage,
 };
