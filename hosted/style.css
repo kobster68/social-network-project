@@ -1,11 +1,14 @@
 html, body {
-    height: 100%;
+    /* height: 100%; */
     width: 100%;
     margin: 0;
     padding: 0;
     overflow-x: hidden;
     background-color: #181a1b;
     color:white;
+    min-height: 400px;
+    margin-bottom: 100px;
+    clear: both;
 }
 
 #logo {
@@ -282,7 +285,7 @@ h3.textHeight {
 
 footer {
     background-color: #0f5b94;
-    position: absolute;
+    position: fixed;
     bottom: 0px;
     width: 100%;
     height: 100px;
