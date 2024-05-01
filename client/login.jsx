@@ -15,6 +15,7 @@ const handleLogin = (e) => {
     }
 
     helper.sendPost(e.target.action, {username, pass});
+    helper.checkPremium();
     return false;
 }
 
@@ -37,7 +38,7 @@ const handleSignup = (e) => {
     }
 
     helper.sendPost(e.target.action, {username, pass, pass2});
-
+    helper.checkPremium();
     return false;
 }
 

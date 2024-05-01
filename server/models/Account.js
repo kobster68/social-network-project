@@ -38,8 +38,8 @@ const AccountSchema = new mongoose.Schema({
     default: Date.now,
   },
   followedUsers: {
-    type: [String],
-    default: undefined,
+    type: String,
+    default: "",
   },
   private: {
     type: Boolean,

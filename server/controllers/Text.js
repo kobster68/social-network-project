@@ -1,6 +1,6 @@
 const models = require('../models');
 
-const { Text } = models;
+const { Text, Account } = models;
 
 const mainPage = (req, res) => res.render('app');
 
@@ -44,8 +44,10 @@ const getTexts = async (req, res) => {
 const followUser = async (req, res) => {
   try {
     console.log('follow request pending.');
-    // need to add empty check for followed users array.
-    req.session.account.followedUsers = [req.body.owner];
+    const username = req.session.account.username;
+    const doc = await Account.findOne({ username });
+    doc.followedUsers = req.body.owner;
+    await doc.save();
     return res.status(200).json({ error: `Followed ${req.body.owner}` });
   } catch (err) {
     console.log(err);

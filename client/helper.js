@@ -1,6 +1,7 @@
 const handleError = (message) => {
     document.getElementById('errorMessage').textContent = message;
     document.getElementById('infoMessage').classList.remove('hidden');
+    checkPremium();
 };
 
 const sendPost = async (url, data, handler) => {
@@ -26,7 +27,18 @@ const sendPost = async (url, data, handler) => {
     if(handler) {
         handler(result);
     }
+    checkPremium();
 };
+
+const checkPremium = async () => {
+  const response = await fetch('/getPremium');
+  const data = await response.json();
+  if(data.premium) {
+    document.getElementById('ad').classList.add('hidden');
+  } else {
+    document.getElementById('ad').classList.remove('hidden');
+  }
+}
 
 const hideError = () => {
     document.getElementById('infoMessage').classList.add('hidden');
@@ -36,4 +48,5 @@ module.exports = {
     handleError,
     sendPost,
     hideError,
+    checkPremium,
 }

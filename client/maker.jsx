@@ -42,6 +42,7 @@ const TextList = (props) => {
             const response = await fetch('/getTexts');
             const data = await response.json();
             setTexts(data.texts);
+            helper.checkPremium();
         };
         loadTextsFromServer();
     }, [props.reloadTexts]);
@@ -58,7 +59,8 @@ const TextList = (props) => {
         return (
             <div key={text.id} className='text'>
                 <button onClick={() => {
-                    const owner = text.owner;
+                    const owner = text.name;
+                    console.log(owner);
                     helper.sendPost("/follow", {owner});
                     const loadTextsFromServer = async () => {
                         const response = await fetch('/getTexts');
