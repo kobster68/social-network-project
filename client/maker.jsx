@@ -118,21 +118,34 @@ const handlePasswordChange = (e) => {
     return false;
 }
 
-const AccountWindow = (props) => {
+const AccountWindow = () => {
     return (
-        <form id="changePasswordForm"
-            name="changePasswordForm"
-            onSubmit={handlePasswordChange}
-            action="/changePassword"
-            method="POST"
-            className='mainForm'
-        >
-            <label htmlFor='pass'>Password: </label>
-            <input id="pass" type="password" name="pass" placeholder='password'/>
-            <label htmlFor='pass'>Password: </label>
-            <input id="pass2" type="password" name="pass2" placeholder='retype password'/>
-            <input className='formSubmit' type="submit" value="Change Password" />
-        </form>
+        <div>
+            <form id="changePasswordForm"
+                name="changePasswordForm"
+                onSubmit={handlePasswordChange}
+                action="/changePassword"
+                method="POST"
+                className='mainForm'
+            >
+                <label htmlFor='pass'>Password: </label>
+                <input id="pass" type="password" name="pass" placeholder='password'/>
+                <label htmlFor='pass'>Password: </label>
+                <input id="pass2" type="password" name="pass2" placeholder='retype password'/>
+                <input className='formSubmit' type="submit" value="Change Password" />
+            </form>
+            <div id="checkboxes">
+                <label for="private">Mark account as private: </label>
+                <input type="button" id="private" name="private" value="Toggle" onClick={() => {
+                    helper.sendPost("/togglePrivate", {});
+                }}/>
+                <br></br>
+                <label for="premium">DEBUG: Mark account as premium: </label>
+                <input type="button" id="premium" name="premium" value="Toggle" onClick={() => {
+                    helper.sendPost("/togglePremium", {});
+                }}/>
+            </div>
+        </div>
     );
 };
 

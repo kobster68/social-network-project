@@ -41,6 +41,14 @@ const AccountSchema = new mongoose.Schema({
     type: [String],
     default: undefined,
   },
+  private: {
+    type: Boolean,
+    default: false,
+  },
+  premium: {
+    type: Boolean,
+    default: false,
+  }
 });
 
 // Converts a doc to something we can store in redis later on.

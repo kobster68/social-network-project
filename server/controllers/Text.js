@@ -46,7 +46,7 @@ const followUser = async (req, res) => {
     console.log('follow request pending.');
     // need to add empty check for followed users array.
     req.session.account.followedUsers = [req.body.owner];
-    return res.status(500).json({ error: 'Debug: followed user' });
+    return res.status(200).json({ error: `Followed ${req.body.owner}` });
   } catch (err) {
     console.log(err);
     return res.status(500).json({ error: 'Error following user!' });

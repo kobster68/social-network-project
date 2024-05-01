@@ -8,6 +8,7 @@ const logout = (req, res) => {
   req.session.destroy();
   res.redirect('/');
 };
+
 const login = (req, res) => {
   const username = `${req.body.username}`;
   const pass = `${req.body.pass}`;
@@ -76,10 +77,50 @@ const changePassword = async (req, res) => {
   }
 };
 
+const togglePrivate = async (req, res) => {
+  const username = req.session.account.username;
+  const doc = await Account.findOne({ username });
+  doc.private = !doc.private;
+  await doc.save();
+  if(doc.private) {
+    return res.status(200).json({ error: 'Private account enabled!' });
+  } else {
+    return res.status(200).json({ error: 'Private account disabled!' });
+  }
+};
+
+const getPrivate = async (req, res) => {
+  const username = req.session.account.username;
+  const doc = await Account.findOne({ username });
+  return res.json({ private: doc.private });
+};
+
+const togglePremium = async (req, res) => {
+  const username = req.session.account.username;
+  const doc = await Account.findOne({ username });
+  doc.premium = !doc.premium;
+  await doc.save();
+  if(doc.premium) {
+    return res.status(200).json({ error: 'Premium account enabled!' });
+  } else {
+    return res.status(200).json({ error: 'Premium account disabled!' });
+  }
+};
+
+const getPremium = async (req, res) => {
+  const username = req.session.account.username;
+  const doc = await Account.findOne({ username });
+  return res.json({ premium: doc.premium });
+};
+
 module.exports = {
   loginPage,
   login,
   logout,
   signup,
   changePassword,
+  togglePrivate,
+  getPrivate,
+  togglePremium,
+  getPremium,
 };

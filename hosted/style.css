@@ -5,6 +5,7 @@ html, body {
     padding: 0;
     overflow-x: hidden;
     background-color: #181a1b;
+    color:white;
 }
 
 #logo {
@@ -276,4 +277,10 @@ h3.textHeight {
 
 .text:last-child {
     margin-bottom:10px;
+}
+
+#checkboxes {
+    font-size: 1.2em;
+    text-align: center;
+    display: block;
 }
