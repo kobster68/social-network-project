@@ -140,7 +140,7 @@ const AccountWindow = () => {
                     helper.sendPost("/togglePrivate", {});
                 }}/>
                 <br></br>
-                <label for="premium">DEBUG: Mark account as premium: </label>
+                <label for="premium">Mark account as premium: </label>
                 <input type="button" id="premium" name="premium" value="Toggle" onClick={() => {
                     helper.sendPost("/togglePremium", {});
                 }}/>
