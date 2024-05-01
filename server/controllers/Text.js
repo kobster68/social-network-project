@@ -28,11 +28,34 @@ const makeText = async (req, res) => {
   }
 };
 
+const privateTest = async (docs, followed, username) => {
+  // console.log(docs);
+  const { name } = docs;
+
+  const _doc = await Account.findOne({ username: name });
+  // console.log(_doc.private);
+  if (_doc.private && name !== followed && name !== username) {
+    return true;
+  }
+  return false;
+};
+
 const getTexts = async (req, res) => {
   console.log('message request recieved');
   try {
     const query = { };
     const docs = await Text.find(query).select('name content').lean().exec();
+
+    const { username } = req.session.account;
+
+    const doc = await Account.findOne({ username });
+    const followed = doc.followedUsers;
+
+    for (let i = 0; i < docs.length; i++) {
+      if (await privateTest(docs[i], followed, username)) {
+        docs[i].content = 'This user is private.';
+      }
+    }
 
     return res.json({ texts: docs });
   } catch (err) {
@@ -44,7 +67,7 @@ const getTexts = async (req, res) => {
 const followUser = async (req, res) => {
   try {
     console.log('follow request pending.');
-    const username = req.session.account.username;
+    const { username } = req.session.account;
     const doc = await Account.findOne({ username });
     doc.followedUsers = req.body.owner;
     await doc.save();

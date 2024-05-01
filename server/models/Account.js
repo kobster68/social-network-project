@@ -39,7 +39,7 @@ const AccountSchema = new mongoose.Schema({
   },
   followedUsers: {
     type: String,
-    default: "",
+    default: '',
   },
   private: {
     type: Boolean,
@@ -48,7 +48,7 @@ const AccountSchema = new mongoose.Schema({
   premium: {
     type: Boolean,
     default: false,
-  }
+  },
 });
 
 // Converts a doc to something we can store in redis later on.
